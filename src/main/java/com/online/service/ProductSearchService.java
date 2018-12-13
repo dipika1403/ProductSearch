@@ -37,7 +37,14 @@ public class ProductSearchService {
         List<Product> result = new ArrayList<>();
         result.addAll(products);
         if(brandName != null)
-            filterProducts = result.stream().filter(p -> p.getBrand().equalsIgnoreCase(brandName)).collect(Collectors.toList());
+            //filterProducts = result.stream().filter(p -> p.getBrand().equalsIgnoreCase(brandName)).collect(Collectors.toList());
+
+        filterProducts = result.stream()
+                .filter(p -> p.getBrand().equalsIgnoreCase(brandName))
+                .map(Product::new)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
         else if(color != null)
             filterProducts = result.stream().filter(p -> p.getColor().equalsIgnoreCase(color)).collect(Collectors.toList());
 
